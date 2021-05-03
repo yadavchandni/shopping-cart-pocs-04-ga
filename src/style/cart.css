@@ -1,0 +1,129 @@
+
+.card {
+  width: 1000px;
+  height: 500px;
+  display: block;
+  margin: 50px auto;
+  /* for linear design left side */
+  background: linear-gradient(100deg, #0f7a94 300px, #fff 300px, #fff);
+  box-shadow: 0 0 30px 0 #999;
+  border-radius: 15px;
+  position: relative;
+}
+
+.product-image {
+  width: 50%;
+  display: block;
+  height: 100%;
+  position: relative;
+  float: left;
+}
+.product-image img {
+  width: 80%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-55%, -60%);
+}
+
+.product-info {
+  position: absolute;
+  width: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translateY(-50%);
+}
+
+.product-name, .product-price {
+  font-family: "Exo", sans-serif;
+}
+
+.product-name {
+  font-size: 2em;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.product-price {
+  font-size: 4em;
+  font-weight: 900;
+  color: #0f7a94;
+}
+.product-price:before {
+  content: "$ ";
+}
+
+.product-slogan {
+  font-family: "Montserrat", sans-serif;
+  color: #666;
+  margin-bottom: 0.8em;
+}
+
+.preferences {
+  display: block;
+  list-style: none;
+  overflow: auto;
+  margin-bottom: 2em;
+}
+.preferences > li {
+  float: left;
+  padding-right: 20px;
+}
+
+
+.list-name {
+  color: #999;
+  text-transform: uppercase;
+  font-size: 0.8em;
+  letter-spacing: 0.2em;
+  margin-bottom: 0.5em;
+  display: block;
+}
+
+
+
+.button {
+  font-family: "Montserrat", sans-serif;
+  background: #333;
+  font-size: 1em;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  text-decoration: none;
+  color: #fff;
+  padding: 15px 30px;
+  border-radius: 7px;
+  transition: 0.25s;
+}
+.button:hover {
+  background: #555;
+}
+
+.product-cart-name{
+    padding-left: 20px;
+    padding-right: 20px;
+}
+/* -======================================== total bill ====================================================*/
+
+.total-bill{
+  padding: 17px;
+  /* text-align: -webkit-right; */
+  background-color: steelblue;
+  padding-left: 2%;
+  width: 22%;
+  float: left;
+  text-align: center;
+  /* padding-bottom: 2%; */
+  margin-bottom: 2%;
+  color: white;
+  z-index: 1;
+  margin-top: -12%;
+  background: linear-gradient( 
+    100deg
+     , #0f7a94 300px, #fff 300px, #fff);
+        /* margin: -10%; */
+        border-radius: 5px;
+        margin-left: 2px;
+        padding-right: 14px;
+        padding: 12px;
+        margin-left: -50px;
+}
