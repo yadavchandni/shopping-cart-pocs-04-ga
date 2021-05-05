@@ -10,11 +10,14 @@ import Cats_First from "../../assets/cats_first.jpg";
 import Cats_Second from "../../assets/cats_second.jpg";
 import Cats_Third from "../../assets/cats_third.jpg";
 
+//Action
+import { productQnty ,clearProduct} from "../../services/action/productQnty";
+
 //Style
 import "../../style/cart.css";
 
-const Cart = ({ basketProps }) => {
-  console.log("basketProps", basketProps);
+const Cart = ({ basketProps, productQnty ,clearProduct}) => {
+  // console.log("basketProps", basketProps);
 
   let productInCart = [];
   Object.keys(basketProps.products).forEach(function (item) {
@@ -28,34 +31,49 @@ const Cart = ({ basketProps }) => {
   });
 
   //For product Image stored in array
-  const productImages = [Cats_First, Cats_Second, Cats_Third];
+  // const productImages = [Cats_First, Cats_Second, Cats_Third];
+
+  //created product image loop function
+  const productImages = (product) => {
+    if (product.tagName === "mollyCat") {
+      return Cats_First;
+    } else if (product.tagName === "smudgeCat") {
+      return Cats_Second;
+    } else if (product.tagName === "indonesianCat") {
+      return Cats_Third;
+    }
+  };
 
   productInCart = productInCart.map((product, index) => {
-    console.log("product", product);
+    // console.log("product", product);
     // var Total=product.number*product.price;
     // console.log('total',Total);
     return (
-
-      <Fragment>
-
+      <Fragment key={index}>
         <div className="card" key={product.id}>
+          {/* ======================================= Product Image ================================== */}
           <div className="product-image">
-            <img src={productImages[index]} alt="all array pic" />
+            <img src={productImages(product)} alt="all array pic" />
           </div>
           <div className="product-info">
             <h1 className="product-name">{product.name}</h1>
+
+            {/*================================== qntys functionality ================================*/}
             <div>
-              <button>
+              <button onClick={() => productQnty("increase", product.tagName)}>
                 <PlusOneIcon />
               </button>
               <span className="product-cart-name">{product.number}</span>
-              <button>
+              <button onClick={() => productQnty("decrease", product.tagName)}>
                 <ExposureNeg1Icon />
               </button>
             </div>
+
+            {/* ==================================== Product Price ==================================== */}
             <h2 className="product-price">{product.price}.00</h2>
 
-            <button className="button" href="#">
+            {/* ===================================== Delete Button ==================================== */}
+            <button className="button" href="#" onClick={()=>clearProduct(product.tagName)}>
               Delete
             </button>
           </div>
@@ -65,13 +83,10 @@ const Cart = ({ basketProps }) => {
   });
   return (
     <div>
-    <div className='total-bill'>Total : ${basketProps.cartCost}</div>
+      <div className="total-bill">Total : ${basketProps.cartCost}</div>
 
-    <div style={{ marginTop:"12%" }}> 
-      {productInCart}
+      <div style={{ marginTop: "12%" }}>{productInCart}</div>
     </div>
-    </div>
-
   );
 };
 
@@ -79,4 +94,4 @@ const mapStateToProps = (state) => ({
   basketProps: state.addToCartState,
 });
 
-export default connect(mapStateToProps)(Cart);
+export default connect(mapStateToProps, { productQnty ,clearProduct})(Cart);

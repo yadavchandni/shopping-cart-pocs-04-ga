@@ -7,7 +7,7 @@ export const addToCartAction = (productName) => {
   return (dispatch) => {
     //consoling data
     // console.log("adding to cart action");
-    console.log("product details action",productName);
+    // console.log("product details action",productName);
     dispatch({
       type: ADD_TO_CART,
       payload:productName

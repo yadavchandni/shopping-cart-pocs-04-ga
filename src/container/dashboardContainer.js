@@ -6,8 +6,8 @@ import Spinner from "../Spinner/spinner";
 export default function HomeContainer() {
   return (
 
-    // <Suspense fallback={<Spinner/>}>
+    <Suspense fallback={<Spinner/>}>
         <Home />
-    // </Suspense>
+    </Suspense>
   );
 }
