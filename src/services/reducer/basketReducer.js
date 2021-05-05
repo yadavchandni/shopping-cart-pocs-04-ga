@@ -4,6 +4,8 @@ import {
   GET_ALL_NUMBERS_IN_CART,
   INCREASE_QNTY,
   DECREASE_QNTY,
+  CLAER_PRODUCT
+
 } from "../constant";
 
 //State stuff
@@ -41,12 +43,12 @@ const initialState = {
 // Use the initialState as a default value
 export const AddToCartReducer = (state = initialState, action) => {
   // The reducer normally looks at the action type field to decide what happens
-  let productSelected= ""; 
+  let productSelected = "";
 
   switch (action.type) {
     // Do something here based on the different types of actions
     case ADD_TO_CART:
-     productSelected = { ...state.products[action.payload] };
+      productSelected = { ...state.products[action.payload] };
       productSelected.number += 1;
       productSelected.inCart = true;
       // console.log('price', state.products.WisteriaMollyCat.price);
@@ -70,41 +72,60 @@ export const AddToCartReducer = (state = initialState, action) => {
 
     // Add to product  qnty  increase
     case INCREASE_QNTY:
-      productSelected={...state.products[action.payload]}
+      productSelected = { ...state.products[action.payload] }
       productSelected.number += 1;
       // console.log('productSelected',productSelected);
       // console.log('Cost', (state.cartCost + state.products[action.payload].price)); //underfined
       return {
         ...state,
-        cartCost : state.cartCost + state.products[action.payload].price,
+        basketNumber:state.basketNumber+1,
+        cartCost: state.cartCost + (state.products[action.payload].price),
         //data stuff here
         products: {
           ...state.products,
           [action.payload]: productSelected,
         },
       };
+
     // Add to product  qnty  decraese
-
     case DECREASE_QNTY:
-      let newCartCost=0;
-      productSelected={...state.products[action.payload]}
-      if(productSelected.number===0){
-        productSelected.number=0;
-        newCartCost=state.cartCost;
+      let newCartCost = 0;
+      let newBasketNumber=0
+      productSelected = { ...state.products[action.payload] }
+      if (productSelected.number === 0) {
+        productSelected.number = 0;
+        newCartCost = state.cartCost;
+        newBasketNumber=state.basketNumber
       }
-      else{
+      else {
         productSelected.number -= 1;
-        newCartCost= state.cartCost - state.products[action.payload].price;
-
+        newCartCost = state.cartCost - state.products[action.payload].price;
+        newBasketNumber=state.basketNumber-1
       }
       return {
         ...state,
-        cartCost:newCartCost,
-        products:{
+        basketNumber:newBasketNumber,
+        cartCost: newCartCost,
+        products: {
           ...state.products,
-          [action.payload]:productSelected,
+          [action.payload]: productSelected,
         }
       };
+
+    case CLAER_PRODUCT:
+      productSelected = { ...state.products[action.payload] };
+      let numberBackup = productSelected.number;
+      productSelected.number = 0;
+      productSelected.inCart = false;
+      return {
+        ...state,
+        basketNumber:state.basketNumber-numberBackup,
+        cartCost: state.cartCost-(numberBackup * productSelected.price),
+        products: {
+          ...state.products,
+          [action.payload]: productSelected,
+        }
+      }
 
     default:
       //If this reducer doesn't recognize the action type, or doesn't

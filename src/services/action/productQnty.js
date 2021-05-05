@@ -1,5 +1,5 @@
 //Constant Action
-import { INCREASE_QNTY,DECREASE_QNTY } from "../constant";
+import { INCREASE_QNTY,DECREASE_QNTY ,CLAER_PRODUCT} from "../constant";
 
 //action is a simple function those return object
 export const productQnty = (action,name) => {
@@ -21,7 +21,8 @@ export const clearProduct =(name)=>{
     console.log("inside if product qnty ")
 
     dispatch({
-      
+      type: CLAER_PRODUCT,
+      payload:name
     
     });
   };
